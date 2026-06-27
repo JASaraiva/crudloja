@@ -1,5 +1,6 @@
-from fastapi import APIRouter
-from schemas import ProductCreate
+from fastapi import APIRouter, status
+from app.schemas import ProductCreate, ProductResponse
+
 
 router = APIRouter(prefix="/products",
                    tags=["produtos"])
@@ -18,7 +19,7 @@ def list_products() -> list[dict]:
 ]
 
 
-@router.post("/")
+@router.post("/", response_model=ProductResponse, status_code=status.HTTP_201_CREATED)
 def create_product() -> object:
     product_create = ProductCreate()
 
