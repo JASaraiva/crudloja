@@ -8,3 +8,6 @@ class ProductCreate(BaseModel):
 
 class ProductResponse(BaseModel):
     id: int
+    name: str
+    description: str
+    value: float
