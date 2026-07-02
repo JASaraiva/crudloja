@@ -1,6 +1,5 @@
 from sqlalchemy import String, Numeric, DECIMAL, Text
 from sqlalchemy.orm import mapped_column, Mapped
-
 from app.database import Base
 
 class Product(Base):
