@@ -6,7 +6,7 @@ from app.database import get_db
 
 router = APIRouter(prefix="/products", tags=["produtos"])
 
-@router.get("/")
+@router.get("/products")
 def list_products() -> list[dict]:
     return  [
     {
@@ -18,6 +18,10 @@ def list_products() -> list[dict]:
         "name": "Mouse"
     }
 ]
+
+@router.get("/products/{id}")
+def get_product(id: int) -> ProductResponse:
+    return crud.get_product(id)
 
 
 @router.post("/", response_model=ProductResponse, status_code=status.HTTP_201_CREATED)
