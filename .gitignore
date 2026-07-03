@@ -1,0 +1,28 @@
+# Python bytecode e C extensions
+__pycache__/
+*.py[cod]
+*.so
+
+# Ambientes virtuais e pacotes
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# IDEs e Editores (VS Code, PyCharm)
+.vscode/
+.idea/
+.DS_Store
+
+# Logs e Cache
+*.log
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Ambiente e Bancos de dados
+.env
+*.sqlite3
+*.db
