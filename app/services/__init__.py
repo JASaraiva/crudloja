@@ -1,1 +1,1 @@
-from .products import ProductService
+from .products import *

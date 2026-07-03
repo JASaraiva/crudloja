@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict, Field
 from decimal import Decimal
-from .categories import CategoryResponse
+from app.schemas import CategoryResponse
 
 ## Schemas for Product
 class ProductBase(BaseModel):

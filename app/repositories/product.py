@@ -1,12 +1,14 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from app import repository, models, schemas
+from app.repositories import category
+from app.schemas import ProductCreate
+from app.models import Product
 from fastapi import HTTPException, status
 
 
-def create_product(db: Session, product: schemas.ProductCreate) -> models.Product:    
-    product = models.Product(**product.model_dump())
-    category = repository.get_category(db, product.category_id)
+def create_product(db: Session, product: ProductCreate) -> Product:    
+    product = Product(**product.model_dump())
+    category = category.get_category(db, product.category_id)
 
     db.add(product)
     db.commit()
@@ -14,8 +16,8 @@ def create_product(db: Session, product: schemas.ProductCreate) -> models.Produc
     return product
 
 
-def get_product(db: Session, product_id: int) -> models.Product:
-    stmt = select(models.Product).where(models.Product.id == product_id)
+def get_product(db: Session, product_id: int) -> Product:
+    stmt = select(Product).where(Product.id == product_id)
     product = db.execute(stmt).scalar_one_or_none()
     
     if product is None:
@@ -24,7 +26,7 @@ def get_product(db: Session, product_id: int) -> models.Product:
     return product
 
 
-def list_products(db: Session) -> list[models.Product]:
+def list_products(db: Session) -> list[Product]:
     stmt = select(Product)
     return db.execute(stmt).scalars().all()
 
