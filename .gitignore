@@ -1,5 +1,6 @@
 # Python bytecode e C extensions
 __pycache__/
+**/__pycache__
 *.py[cod]
 *.so
 
