@@ -1,6 +1,7 @@
-from sqlalchemy import String, Numeric, DECIMAL, Text
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy import String, Numeric, Text, ForeignKey
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 from app.database import Base
+from decimal import Decimal
 
 class Product(Base):
     __tablename__ = "products"
@@ -8,7 +9,23 @@ class Product(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(30))
     description: Mapped[str] = mapped_column(Text)
-    value: Mapped[DECIMAL] = mapped_column(Numeric(10,2))
+    value: Mapped[Decimal] = mapped_column(Numeric(10,2))
+    category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
+
+    category: Mapped["Category"] = relationship(back_populates="products")
 
     def __repr__(self) -> str:
         return f"Product(id={self.id!r}, name={self.name!r}, description={self.description!r}, value={self.value!r})"
+
+
+class Category(Base):
+    __tablename__ = "categories"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(50), unique=True)
+    
+
+    products: Mapped[list["Product"]] = relationship(back_populates="category")
+
+    def __repr__(self) -> str:
+        return f"Category(id={self.id!r}, name={self.name!r})"

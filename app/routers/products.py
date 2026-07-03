@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends, HttpException
+from fastapi import APIRouter, status, Depends
 from sqlalchemy.orm import Session
 from app.schemas import ProductCreate, ProductResponse, ProductUpdate
 from app import crud
@@ -23,11 +23,9 @@ def create_product(product: ProductCreate, db: Session = session) -> ProductResp
 
 @router.put("/{id}", response_model=ProductResponse, status_code=status.HTTP_200_OK)
 def update_product(id: int, product: ProductUpdate, db: Session = session) -> ProductResponse:
-    # Implementation for updating a product
-    pass
+    return crud.update_product(db, id, product)
 
 
-@router.delete("/{id}", response_model=ProductResponse, status_code=status.HTTP_200_OK)
-def delete_product(id: int, db: Session = session) -> ProductResponse:
-    # Implementation for deleting a product
-    pass
+@router.delete("/{id}", status_code=status.HTTP_200_OK)
+def delete_product(id: int, db: Session = session):
+    return crud.delete_product(db, id)
