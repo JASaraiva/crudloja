@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import products, categories, users
+from app.routers import category, product, user
 from app.database import Base, engine
 
 
@@ -11,6 +11,6 @@ def home() -> dict:
         "message": "API Loja"
     }
 
-app.include_router(users.router)
-app.include_router(products.router)
-app.include_router(categories.router)
+app.include_router(user.router)
+app.include_router(product.router)
+app.include_router(category.router)
