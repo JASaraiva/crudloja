@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from app.routers import category, product, user
+from app.routers import category
+from app.routers import product
+from app.routers import user
 from app.database import Base, engine
 
 
