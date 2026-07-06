@@ -36,9 +36,8 @@ class CategoryRepository:
         db.refresh(category)
         return category
 
-    def delete_category(self, db: Session, category_id: int) -> Category:
+    def delete_category(self, db: Session, category_id: int) -> None:
         category = self.get_category(db, category_id)
 
         db.delete(category)
         db.commit()
-        return category
