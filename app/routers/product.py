@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app import schemas
 from app.services import ProductService
 from app.database import get_db
-from app.dependency import get_product_service
+from app.denpendencies import get_product_service
 
 router = APIRouter(prefix="/products", tags=["produtos"])
 
