@@ -1,24 +1,15 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
+load_dotenv()
 
-DATABASE_URL = "sqlite:///./loja.db"
-
+DATABASE_URL = os.getenv("DATABASE_URL", "teste")
 
 engine = create_engine(DATABASE_URL, echo=True)
-SessionLocal = sessionmaker(autocommit = False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 class Base(DeclarativeBase):
     pass
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    except Exception:
-        db.rollback()
-        raise
-    finally:
-        db.close()
