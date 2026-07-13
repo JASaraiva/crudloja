@@ -1,4 +1,3 @@
-- padronizar as funções (get, list, create, update, delete)
 - Organizar camadas reduzindo acomplamentos (Ver viabilidade de implementar DTO)
 - Implementar JWT
 - Implementar logging
