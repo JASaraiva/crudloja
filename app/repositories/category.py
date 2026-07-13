@@ -2,13 +2,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy import select
 from app.models import Category
 from app.schemas import CategoryCreate, CategoryUpdate
-from fastapi import HTTPException, status
 
 
 class CategoryRepository:
 
     def __init__(self, db: Session):
         self.db = db
+
 
     def create_category(self, category: CategoryCreate) -> Category:
         db_category = Category(**category.model_dump())
@@ -17,18 +17,16 @@ class CategoryRepository:
         self.db.refresh(db_category)
         return db_category
 
-    def get_category(self, category_id: int) -> Category:
+
+    def get_category(self, category_id: int) -> Category | None:
         stmt = select(Category).where(Category.id == category_id)
-        category = self.db.execute(stmt).scalar_one_or_none()
+        return self.db.execute(stmt).scalar_one_or_none()
 
-        if category is None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Category not found")
-
-        return category
 
     def list_categories(self) -> list[Category]:
         stmt = select(Category)
         return self.db.execute(stmt).scalars().all()
+
 
     def update_category(self, category_id: int, category_data: CategoryUpdate) -> Category:
         category = self.get_category(category_id)
@@ -38,6 +36,7 @@ class CategoryRepository:
         self.db.commit()
         self.db.refresh(category)
         return category
+
 
     def delete_category(self, category_id: int) -> None:
         category = self.get_category(category_id)

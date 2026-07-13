@@ -14,6 +14,8 @@ class Product(Base):
     stock: Mapped[int] = mapped_column(default=0)
 
     category: Mapped["Category"] = relationship(back_populates="products")
+    orders: Mapped[list["Order"]] = relationship(back_populates="product")
+    ratings: Mapped[list["Rating"]] = relationship(back_populates="product")
 
     def __repr__(self) -> str:
-        return f"Product(id={self.id!r}, name={self.name!r}, description={self.description!r}, value={self.value!r})"
+        return f"Product(id={self.id!r}, name={self.name!r}, description={self.description!r})"
