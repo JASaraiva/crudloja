@@ -6,21 +6,21 @@ from app.dependencies import get_payment_service
 router = APIRouter(prefix="/payments", tags=["payments"])
 
 @router.get("/")
-def list_payments(service: PaymentService = Depends(get_payment_service)) -> list[PaymentResponse]:
-    return service.list_payments()
+def list(service: PaymentService = Depends(get_payment_service)) -> list[PaymentResponse]:
+    return service.list()
 
 @router.get("/{id}")
-def get_payment(id: int, service: PaymentService = Depends(get_payment_service)) -> PaymentResponse:
-    return service.get_payment(id)
+def get(id: int, service: PaymentService = Depends(get_payment_service)) -> PaymentResponse:
+    return service.get(id)
 
 @router.post("/", response_model=PaymentResponse, status_code=status.HTTP_201_CREATED)
-def create_payment(payment: PaymentCreate, service: PaymentService = Depends(get_payment_service)) -> PaymentResponse:
-    return service.create_payment(payment)
+def create(payment: PaymentCreate, service: PaymentService = Depends(get_payment_service)) -> PaymentResponse:
+    return service.create(payment)
 
 @router.put("/{id}", response_model=PaymentResponse, status_code=status.HTTP_200_OK)
-def update_payment(id: int, payment: PaymentUpdate, service: PaymentService = Depends(get_payment_service)) -> PaymentResponse:
-    return service.update_payment(id, payment)
+def update(id: int, payment: PaymentUpdate, service: PaymentService = Depends(get_payment_service)) -> PaymentResponse:
+    return service.update(id, payment)
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_payment(id: int, service: PaymentService = Depends(get_payment_service)) -> None:
-    service.delete_payment(id)
+def delete(id: int, service: PaymentService = Depends(get_payment_service)) -> None:
+    service.delete(id)

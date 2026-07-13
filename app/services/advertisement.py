@@ -10,9 +10,9 @@ class AdvertisementService():
         self.repository = repository
 
 
-    def get_advertisement(self, advertisement_id: int) -> Advertisement:
+    def get(self, advertisement_id: int) -> Advertisement:
 
-        advertisement = self.repository.get_advertisement(advertisement_id)
+        advertisement = self.repository.get(advertisement_id)
 
         if advertisement is None:
             raise AdvertisementNotFoundException(advertisement_id)
@@ -21,11 +21,11 @@ class AdvertisementService():
     
 
     
-    def list_advertisements(self) -> Advertisement:
-        advertisements = self.repository.list_advertisements()
+    def list(self) -> Advertisement:
+        advertisements = self.repository.list()
         return advertisements
     
 
-    def create_advertisement(self, advertisement_data: AdvertisementCreate) -> Advertisement: 
-        return self.repository.create_advertisement(advertisement_data)
+    def create(self, advertisement_data: AdvertisementCreate) -> Advertisement: 
+        return self.repository.create(advertisement_data)
         

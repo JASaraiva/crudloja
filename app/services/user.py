@@ -10,9 +10,9 @@ class UserService():
         self.repository = repository
 
 
-    def get_user(self, user_id: int) -> User:
+    def get(self, user_id: int) -> User:
 
-        user = self.repository.get_user(user_id)
+        user = self.repository.get(user_id)
 
         if user is None:
             raise UserNotFoundException(user_id)
@@ -21,11 +21,11 @@ class UserService():
     
 
     
-    def list_users(self) -> User:
-        user = self.repository.list_users()
+    def list(self) -> User:
+        user = self.repository.list()
         return user
     
 
-    def create_user(self, user_data: UserCreate) -> User: 
-        return self.repository.create_user(user_data)
+    def create(self, user_data: UserCreate) -> User: 
+        return self.repository.create(user_data)
         

@@ -6,21 +6,21 @@ from app.dependencies import get_rating_service
 router = APIRouter(prefix="/ratings", tags=["ratings"])
 
 @router.get("/")
-def list_ratings(service: RatingService = Depends(get_rating_service)) -> list[RatingResponse]:
-    return service.list_ratings()
+def list(service: RatingService = Depends(get_rating_service)) -> list[RatingResponse]:
+    return service.list()
 
 @router.get("/{id}")
-def get_rating(id: int, service: RatingService = Depends(get_rating_service)) -> RatingResponse:
-    return service.get_rating(id)
+def get(id: int, service: RatingService = Depends(get_rating_service)) -> RatingResponse:
+    return service.get(id)
 
 @router.post("/", response_model=RatingResponse, status_code=status.HTTP_201_CREATED)
-def create_rating(rating: RatingCreate, service: RatingService = Depends(get_rating_service)) -> RatingResponse:
-    return service.create_rating(rating)
+def create(rating: RatingCreate, service: RatingService = Depends(get_rating_service)) -> RatingResponse:
+    return service.create(rating)
 
 @router.put("/{id}", response_model=RatingResponse, status_code=status.HTTP_200_OK)
-def update_rating(id: int, rating: RatingUpdate, service: RatingService = Depends(get_rating_service)) -> RatingResponse:
-    return service.update_rating(id, rating)
+def update(id: int, rating: RatingUpdate, service: RatingService = Depends(get_rating_service)) -> RatingResponse:
+    return service.update(id, rating)
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_rating(id: int, service: RatingService = Depends(get_rating_service)) -> None:
-    service.delete_rating(id)
+def delete(id: int, service: RatingService = Depends(get_rating_service)) -> None:
+    service.delete(id)

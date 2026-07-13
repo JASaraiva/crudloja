@@ -10,9 +10,9 @@ class PaymentMethodService():
         self.repository = repository
 
 
-    def get_payment_method(self, payment_method_id: int) -> PaymentMethod:
+    def get(self, payment_method_id: int) -> PaymentMethod:
 
-        payment_method = self.repository.get_payment_method(payment_method_id)
+        payment_method = self.repository.get(payment_method_id)
 
         if payment_method is None:
             raise PaymentMethodNotFoundException(payment_method_id)
@@ -21,11 +21,11 @@ class PaymentMethodService():
     
 
     
-    def list_payment_methods(self) -> PaymentMethod:
-        payment_methods = self.repository.list_payment_methods()
+    def list(self) -> PaymentMethod:
+        payment_methods = self.repository.list()
         return payment_methods
     
 
-    def create_payment_method(self, payment_method_data: PaymentMethodCreate) -> PaymentMethod: 
-        return self.repository.create_payment_method(payment_method_data)
+    def create(self, payment_method_data: PaymentMethodCreate) -> PaymentMethod: 
+        return self.repository.create(payment_method_data)
         

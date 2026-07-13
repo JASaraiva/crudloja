@@ -6,21 +6,21 @@ from app.dependencies import get_advertisement_service
 router = APIRouter(prefix="/advertisements", tags=["advertisements"])
 
 @router.get("/")
-def list_advertisements(service: AdvertisementService = Depends(get_advertisement_service)) -> list[AdvertisementResponse]:
-    return service.list_advertisements()
+def list(service: AdvertisementService = Depends(get_advertisement_service)) -> list[AdvertisementResponse]:
+    return service.list()
 
 @router.get("/{id}")
-def get_advertisement(id: int, service: AdvertisementService = Depends(get_advertisement_service)) -> AdvertisementResponse:
-    return service.get_advertisement(id)
+def get(id: int, service: AdvertisementService = Depends(get_advertisement_service)) -> AdvertisementResponse:
+    return service.get(id)
 
 @router.post("/", response_model=AdvertisementResponse, status_code=status.HTTP_201_CREATED)
-def create_advertisement(advertisement: AdvertisementCreate, service: AdvertisementService = Depends(get_advertisement_service)) -> AdvertisementResponse:
-    return service.create_advertisement(advertisement)
+def create(advertisement: AdvertisementCreate, service: AdvertisementService = Depends(get_advertisement_service)) -> AdvertisementResponse:
+    return service.create(advertisement)
 
 @router.put("/{id}", response_model=AdvertisementResponse, status_code=status.HTTP_200_OK)
-def update_advertisement(id: int, advertisement: AdvertisementUpdate, service: AdvertisementService = Depends(get_advertisement_service)) -> AdvertisementResponse:
-    return service.update_advertisement(id, advertisement)
+def update(id: int, advertisement: AdvertisementUpdate, service: AdvertisementService = Depends(get_advertisement_service)) -> AdvertisementResponse:
+    return service.update(id, advertisement)
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_advertisement(id: int, service: AdvertisementService = Depends(get_advertisement_service)) -> None:
-    service.delete_advertisement(id)
+def delete(id: int, service: AdvertisementService = Depends(get_advertisement_service)) -> None:
+    service.delete(id)

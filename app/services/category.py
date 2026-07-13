@@ -10,9 +10,9 @@ class CategoryService():
         self.repository = repository
 
 
-    def get_category(self, category_id: int) -> Category:
+    def get(self, category_id: int) -> Category:
 
-        category = self.repository.get_category(category_id)
+        category = self.repository.get(category_id)
 
         if category is None:
             raise CategoryNotFoundException(category_id)
@@ -21,11 +21,11 @@ class CategoryService():
     
 
     
-    def list_categories(self) -> Category:
-        categories = self.repository.list_categories()
+    def list(self) -> Category:
+        categories = self.repository.list()
         return categories
     
 
-    def create_category(self, category_data: CategoryCreate) -> Category: 
-        return self.repository.create_category(category_data)
+    def create(self, category_data: CategoryCreate) -> Category: 
+        return self.repository.create(category_data)
         

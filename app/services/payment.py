@@ -10,9 +10,9 @@ class PaymentService():
         self.repository = repository
 
 
-    def get_payment(self, payment_id: int) -> Payment:
+    def get(self, payment_id: int) -> Payment:
 
-        payment = self.repository.get_payment(payment_id)
+        payment = self.repository.get(payment_id)
 
         if payment is None:
             raise PaymentNotFoundException(payment_id)
@@ -21,11 +21,11 @@ class PaymentService():
     
 
     
-    def list_payments(self) -> Payment:
-        payments = self.repository.list_payments()
+    def list(self) -> Payment:
+        payments = self.repository.list()
         return payments
     
 
-    def create_payment(self, payment_data: PaymentCreate) -> Payment: 
-        return self.repository.create_payment(payment_data)
+    def create(self, payment_data: PaymentCreate) -> Payment: 
+        return self.repository.create(payment_data)
         

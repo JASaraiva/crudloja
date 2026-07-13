@@ -10,9 +10,9 @@ class RoleService():
         self.repository = repository
 
 
-    def get_role(self, role_id: int) -> Role:
+    def get(self, role_id: int) -> Role:
 
-        role = self.repository.get_role(role_id)
+        role = self.repository.get(role_id)
 
         if role is None:
             raise RoleNotFoundException(role_id)
@@ -21,11 +21,11 @@ class RoleService():
     
 
     
-    def list_roles(self) -> Role:
-        roles = self.repository.list_roles()
+    def list(self) -> Role:
+        roles = self.repository.list()
         return roles
     
 
-    def create_role(self, role_data: RoleCreate) -> Role: 
-        return self.repository.create_role(role_data)
+    def create(self, role_data: RoleCreate) -> Role: 
+        return self.repository.create(role_data)
         

@@ -10,9 +10,9 @@ class CommentService():
         self.repository = repository
 
 
-    def get_comment(self, comment_id: int) -> Comment:
+    def get(self, comment_id: int) -> Comment:
 
-        comment = self.repository.get_comment(comment_id)
+        comment = self.repository.get(comment_id)
 
         if comment is None:
             raise CommentNotFoundException(comment_id)
@@ -21,11 +21,11 @@ class CommentService():
     
 
     
-    def list_comments(self) -> Comment:
-        comments = self.repository.list_comments()
+    def list(self) -> Comment:
+        comments = self.repository.list()
         return comments
     
 
-    def create_comment(self, comment_data: CommentCreate) -> Comment: 
-        return self.repository.create_comment(comment_data)
+    def create(self, comment_data: CommentCreate) -> Comment: 
+        return self.repository.create(comment_data)
         
