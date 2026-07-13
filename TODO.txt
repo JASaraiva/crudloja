@@ -1,0 +1,10 @@
+- padronizar as funções (get, list, create, update, delete)
+- Organizar camadas reduzindo acomplamentos (Ver viabilidade de implementar DTO)
+- Implementar JWT
+- Implementar logging
+- paginação
+- filtros
+- pemissões
+- rotinas (envios de e-mail notificações)
+- administração
+- documentação (README)
