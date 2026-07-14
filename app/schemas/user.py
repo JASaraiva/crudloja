@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict, Field
 class UserBase(BaseModel):
     name: str = Field(min_length=3, max_length=100, examples=["John Doe"])
     email: str = Field(min_length=5, max_length=255, examples=["john.doe@example.com"])
-    password: str = Field(min_length=6, max_length=100, examples=["password123"])
+    password: str = Field(min_length=6, max_length=100, examples=["a6a78aiajhas$*&afa"])
 
 class UserCreate(UserBase):
     pass

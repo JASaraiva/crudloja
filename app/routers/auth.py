@@ -1,31 +1,22 @@
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
 
-app = FastAPI()
+from app.core.database import get_db
+from app.services.auth_service import AuthService, get_current_user
+from app.schemas.user_schema import TokenSchema, UserResponse
+from app.models.user_model import UserModel
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+router = APIRouter(prefix="/auth", tags=["Autenticação"])
 
-# Rota para gerar o JWT
-@app.post("/token")
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    # Aqui você deve validar o usuário no banco de dados
-    # if form_data.username != "user" or form_data.password != "pass":
-    #     raise HTTPException(...)
+@router.post("/login", response_model=TokenSchema)
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    auth_service = AuthService(db)
+    user = auth_service.authenticate_user(form_data.username, form_data.password)
+    token = auth_service.generate_token(user.username)
     
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": form_data.username}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": token, "token_type": "bearer"}
 
-# Rota protegida
-@app.get("/users/me/")
-async def read_users_me(token: str = Depends(oauth2_scheme)):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise HTTPException(status_code=401, detail="Credenciais inválidas")
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Credenciais inválidas")
-    return {"username": username}
+@router.get("/me", response_model=UserResponse)
+def get_me(current_user: UserModel = Depends(get_current_user)):
+    return current_user
