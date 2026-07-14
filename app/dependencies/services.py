@@ -1,6 +1,6 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from app.services import ProductService, CategoryService, UserService, OrderService, AdvertisementService, RoleService, PaymentService, CommentService, PaymentMethodService, RatingService
+from app.services import ProductService, CategoryService, UserService, OrderService, AdvertisementService, RoleService, PaymentService, CommentService, PaymentMethodService, RatingService, AuthService
 from app.repositories import ProductRepository, CategoryRepository, RoleRepository, CommentRepository, RatingRepository, PaymentMethodRepository, PaymentRepository, UserRepository, OrderRepository, AdvertisementRepository
 from app.dependencies.sessions import get_db
 
@@ -53,3 +53,8 @@ def get_rating_service(db: Session = Depends(get_db)) -> RatingService:
 def get_comment_service(db: Session = Depends(get_db)) -> CommentService:
     repository = CommentRepository(db)
     return CommentService(repository)
+
+
+def get_auth_service(db: Session = Depends(get_db)) -> AuthService:
+    repository = UserRepository(db)
+    return AuthService(repository)

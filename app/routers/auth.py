@@ -1,22 +1,22 @@
-from fastapi import APIRouter, Depends
-from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.core.database import get_db
-from app.services.auth_service import AuthService, get_current_user
-from app.schemas.user_schema import TokenSchema, UserResponse
-from app.models.user_model import UserModel
+from app.dependencies import get_auth_service, get_current_user
+from app.exceptions import UnauthorizedException
+from app.models import User
+from app.schemas import AuthLogin, TokenSchema
+from app.services import AuthService
 
-router = APIRouter(prefix="/auth", tags=["Autenticação"])
+router = APIRouter(prefix="/auth", tags=["auth"])
+
 
 @router.post("/login", response_model=TokenSchema)
-def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    auth_service = AuthService(db)
-    user = auth_service.authenticate_user(form_data.username, form_data.password)
-    token = auth_service.generate_token(user.username)
-    
-    return {"access_token": token, "token_type": "bearer"}
+def login(credentials: AuthLogin, service: AuthService = Depends(get_auth_service)) -> TokenSchema:
+    try:
+        return service.login(credentials)
+    except UnauthorizedException:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
-@router.get("/me", response_model=UserResponse)
-def get_me(current_user: UserModel = Depends(get_current_user)):
-    return current_user
+
+@router.get("/me")
+def me(current_user: User = Depends(get_current_user)) -> dict:
+    return {"id": current_user.id, "name": current_user.name, "email": current_user.email}

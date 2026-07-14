@@ -8,3 +8,4 @@ from .advertisement import *
 from .rating import *
 from .comment import *
 from .user import *
+from .auth import *
