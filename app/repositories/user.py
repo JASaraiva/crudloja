@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+
 from app.models import User
 from app.repositories.base import BaseRepository
 from app.schemas import UserCreate, UserUpdate

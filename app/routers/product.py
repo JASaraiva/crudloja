@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status, Depends
+
 from app.schemas import ProductCreate, ProductUpdate, ProductResponse
 from app.services import ProductService
 from app.dependencies import get_product_service

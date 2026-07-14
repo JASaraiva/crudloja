@@ -1,5 +1,6 @@
-from pydantic import BaseModel, ConfigDict, Field
 from decimal import Decimal
+
+from pydantic import BaseModel, ConfigDict, Field
 
 class PaymentBase(BaseModel):
     payment_method_id: int = Field(gt=0, examples=[1])

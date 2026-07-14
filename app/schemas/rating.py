@@ -1,5 +1,4 @@
 from pydantic import BaseModel, ConfigDict, Field
-from decimal import Decimal
 
 class RatingBase(BaseModel):
     user_id: int = Field(gt=0, examples=[1])

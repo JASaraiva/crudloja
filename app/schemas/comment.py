@@ -1,5 +1,6 @@
-from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict, Field
 
 class CommentBase(BaseModel):
     title: str = Field(min_length=3, max_length=100, examples=["Eletrônicos"])

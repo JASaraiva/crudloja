@@ -1,5 +1,6 @@
-from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict, Field
 
 class OrderBase(BaseModel):
     product_id: int = Field(gt=0, examples=[1])

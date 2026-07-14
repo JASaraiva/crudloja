@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status, Depends
+
 from app.schemas import UserCreate, UserUpdate, UserResponse
 from app.services import UserService
 from app.dependencies import get_user_service

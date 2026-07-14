@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status, Depends
+
 from app.schemas import RatingCreate, RatingUpdate, RatingResponse
 from app.services import RatingService
 from app.dependencies import get_rating_service

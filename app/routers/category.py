@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status, Depends
+
 from app.schemas import CategoryCreate, CategoryUpdate, CategoryResponse
 from app.services import CategoryService
 from app.dependencies import get_category_service
