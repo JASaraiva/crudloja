@@ -1,6 +1,7 @@
+from app.database import Base
+
 from sqlalchemy import Integer, ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from app.database import Base
 
 
 class Rating(Base):

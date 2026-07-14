@@ -1,5 +1,6 @@
 from sqlalchemy import Text, String
 from sqlalchemy.orm import mapped_column, Mapped, relationship
+
 from app.database import Base
 
 

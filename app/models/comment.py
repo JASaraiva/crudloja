@@ -1,7 +1,9 @@
+from datetime import datetime
+
 from sqlalchemy import String, Text,  DateTime, ForeignKey, func
 from sqlalchemy.orm import mapped_column, Mapped, relationship
+
 from app.database import Base
-from datetime import datetime
 
 class Comment(Base):
     __tablename__ = "comments"

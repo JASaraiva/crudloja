@@ -1,7 +1,9 @@
+from datetime import datetime
+
 from sqlalchemy import Integer, DateTime, func, ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped, relationship
+
 from app.database import Base
-from datetime import datetime
 
 class Order(Base):
     __tablename__ = "orders"

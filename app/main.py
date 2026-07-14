@@ -1,5 +1,18 @@
 from fastapi import FastAPI
-from app.routers import category, product, order, role, payment, payment_method, advertisement, rating, comment, user, auth
+
+from app.routers import (
+    category, 
+    product, 
+    order, 
+    role, 
+    payment, 
+    payment_method, 
+    advertisement, 
+    rating, 
+    comment, 
+    user, 
+    auth
+)
 
 
 app = FastAPI()

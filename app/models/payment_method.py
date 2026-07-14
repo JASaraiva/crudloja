@@ -1,6 +1,7 @@
+from app.database import Base
+
 from sqlalchemy import String, Text
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from app.database import Base
 
 class PaymentMethod(Base):
     __tablename__ = "payment_methods"

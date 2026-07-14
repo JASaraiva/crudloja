@@ -17,3 +17,9 @@ class AuthService:
 
         token = create_access_token(subject=user.email)
         return TokenSchema(access_token=token, token_type="bearer")
+    
+
+    def get_current_user_data(self, id):
+        user = self.repository.get(id)
+
+        return user
