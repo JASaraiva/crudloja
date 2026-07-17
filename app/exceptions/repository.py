@@ -2,7 +2,7 @@ from app.exceptions.base import AppException
 
         
 class RepositoryIntegrityException(AppException):
-    """Exception raised when a base or base to create a base is not found."""
-    pass
+    def __init__(self, message: str = "Operação violaria integridade referencial."):
+        super().__init__(message)
 
 

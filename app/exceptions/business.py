@@ -6,4 +6,4 @@ class BusinessException(AppException):
     status_code = 400
 
     def __init__(self, message: str):
-        super.message = message
+        super().__init__(message)

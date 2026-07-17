@@ -1,8 +1,9 @@
 from app.repositories import UserRepository
 from app.exceptions import (
     UserNotFoundException,
-    UserHasDependenciesException, 
-    RepositoryIntegrityException
+    UserHasRatingsException,
+    UserHasCommentsException,
+    UserHasPaymentsException,
 )
 from app.models import User
 from app.schemas import UserCreate
@@ -34,12 +35,16 @@ class UserService():
     
 
     def delete(self, user_id: int) -> bool:
+        user = self.get(user_id)
 
-        try:
-            self.repository.delete(user_id)
-        except RepositoryIntegrityException:
-            raise UserHasDependenciesException()
+        if user.ratings:
+            raise UserHasRatingsException()
+        if user.comments:
+            raise UserHasCommentsException()
+        if user.payments:
+            raise UserHasPaymentsException()
 
+        self.repository.delete(user_id)
         return True
 
         
