@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends
 
 from app.dependencies import get_auth_service, get_current_user
 from app.schemas import AuthLogin, TokenSchema
 from app.services import AuthService
 
-router = APIRouter(prefix="/auth", tags=["auth"])
+router = APIRouter(prefix="", tags=["auth"])
 
 
 @router.post("/login", response_model=TokenSchema)

@@ -1,6 +1,9 @@
 from typing import TypeVar, Generic
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+
+from app.exceptions import RepositoryIntegrityException
 
 ModelType = TypeVar("ModelType")
 CreateSchemaType = TypeVar("CreateSchemaType")
@@ -40,6 +43,11 @@ class BaseRepository(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     def delete(self, id: int) -> None:
         obj = self.get(id)
-        if obj is not None:
+
+        try:
             self.db.delete(obj)
             self.db.commit()
+        except IntegrityError as e:
+            self.db.rollback()
+            raise RepositoryIntegrityException() from e
+        

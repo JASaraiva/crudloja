@@ -9,3 +9,6 @@ from .rating import *
 from .comment import *
 from .user import *
 from .auth import *
+from .base import *
+from .business import *
+from .repository import *

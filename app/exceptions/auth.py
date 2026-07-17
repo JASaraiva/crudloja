@@ -1,2 +1,3 @@
-class UnauthorizedException(Exception):
+from app.exceptions.base import AppException
+class UnauthorizedException(AppException):
     pass
