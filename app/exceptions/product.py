@@ -1,5 +1,8 @@
-from app.exceptions.base import AppException
+from app.exceptions.business import BusinessException
 
-class ProductNotFoundException(AppException):
-    """Exception raised when a product or category to create a product is not found."""
-    pass
+
+class ProductNotFoundException(BusinessException):
+    status_code = 404
+
+    def __init__(self):
+        super().__init__("Produto não encontrado.")

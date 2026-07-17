@@ -13,5 +13,5 @@ def login(credentials: AuthLogin, service: AuthService = Depends(get_auth_servic
 
 
 @router.get("/me")
-def me(service: AuthService = Depends(get_current_user)) -> dict:
-    return service.get_current_user_data()
+def me(current_user=Depends(get_current_user)) -> dict:
+    return {"id": current_user.id, "name": current_user.name, "email": current_user.email}

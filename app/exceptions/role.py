@@ -1,5 +1,8 @@
-from app.exceptions.base import AppException
+from app.exceptions.business import BusinessException
 
-class RoleNotFoundException(AppException):
-    """Exception raised when a role or role to create a role is not found."""
-    pass
+
+class RoleNotFoundException(BusinessException):
+    status_code = 404
+
+    def __init__(self):
+        super().__init__("Perfil não encontrado.")

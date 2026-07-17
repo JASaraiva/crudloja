@@ -1,5 +1,8 @@
-from app.exceptions.base import AppException
+from app.exceptions.business import BusinessException
 
-class PaymentMethodNotFoundException(AppException):
-    """Exception raised when a payment method or payment method to create a payment method is not found."""
-    pass
+
+class PaymentMethodNotFoundException(BusinessException):
+    status_code = 404
+
+    def __init__(self):
+        super().__init__("Forma de pagamento não encontrada.")

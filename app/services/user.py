@@ -6,7 +6,8 @@ from app.exceptions import (
     UserHasPaymentsException,
 )
 from app.models import User
-from app.schemas import UserCreate
+from app.schemas import UserCreate, UserUpdate
+from app.utils import get_password_hash
 
 
 class UserService():
@@ -15,11 +16,14 @@ class UserService():
         self.repository = repository
 
 
+    def get_by_email(self, email: str) -> User | None:
+        return self.repository.get_by_email(email)
+
     def get(self, user_id: int) -> User:
         user = self.repository.get(user_id)
 
         if user is None:
-            raise UserNotFoundException(user_id)
+            raise UserNotFoundException()
         
         return user
     
@@ -30,8 +34,17 @@ class UserService():
         return user
     
 
-    def create(self, user_data: UserCreate) -> User: 
+    def create(self, user_data: UserCreate) -> User:
+        user_data.password = get_password_hash(user_data.password)
         return self.repository.create(user_data)
+
+    def update(self, user_id: int, user_data: UserUpdate) -> User:
+        if user_data.password is not None:
+            user_data.password = get_password_hash(user_data.password)
+        updated = self.repository.update(user_id, user_data)
+        if updated is None:
+            raise UserNotFoundException()
+        return updated
     
 
     def delete(self, user_id: int) -> bool:

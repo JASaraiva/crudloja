@@ -35,7 +35,7 @@ class BaseRepository(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         obj = self.get(id)
         if obj is None:
             return None
-        for key, value in data.model_dump().items():
+        for key, value in data.model_dump(exclude_none=True).items():
             setattr(obj, key, value)
         self.db.commit()
         self.db.refresh(obj)
@@ -43,6 +43,8 @@ class BaseRepository(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     def delete(self, id: int) -> None:
         obj = self.get(id)
+        if obj is None:
+            return
 
         try:
             self.db.delete(obj)

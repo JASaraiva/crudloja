@@ -1,51 +1,36 @@
-from fastapi import status
-
 from app.exceptions.business import BusinessException
 
+
 class UserNotFoundException(BusinessException):
-    status_code = status.HTTP_404_NOT_FOUND
+    status_code = 404
 
     def __init__(self):
-        super().__init__(
-            "Usuário não encontrado."
-        )
+        super().__init__("Usuário não encontrado.")
 
 
 class UserHasDependenciesException(BusinessException):
-
-    status_code = status.HTTP_409_CONFLICT
+    status_code = 409
 
     def __init__(self):
-        super().__init__(
-            "Não é possível remover o usuário porque existem registros associados."
-        )
+        super().__init__("Não é possível remover o usuário porque existem registros associados.")
 
 
 class UserHasRatingsException(BusinessException):
-
-    status_code = status.HTTP_409_CONFLICT
+    status_code = 409
 
     def __init__(self):
-        super().__init__(
-            "Não é possível remover o usuário porque ele possui avaliações associadas."
-        )
+        super().__init__("Não é possível remover o usuário porque ele possui avaliações associadas.")
 
 
 class UserHasCommentsException(BusinessException):
-
-    status_code = status.HTTP_409_CONFLICT
+    status_code = 409
 
     def __init__(self):
-        super().__init__(
-            "Não é possível remover o usuário porque ele possui comentários associados."
-        )
+        super().__init__("Não é possível remover o usuário porque ele possui comentários associados.")
 
 
 class UserHasPaymentsException(BusinessException):
-
-    status_code = status.HTTP_409_CONFLICT
+    status_code = 409
 
     def __init__(self):
-        super().__init__(
-            "Não é possível remover o usuário porque ele possui pagamentos associados."
-        )
+        super().__init__("Não é possível remover o usuário porque ele possui pagamentos associados.")

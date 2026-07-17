@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.schemas import CategoryResponse
+from app.schemas.category import CategoryResponse
 
 
 class ProductBase(BaseModel):

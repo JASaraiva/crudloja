@@ -1,5 +1,8 @@
-from app.exceptions.base import AppException
+from app.exceptions.business import BusinessException
 
-class CategoryNotFoundException(AppException):
-    """Exception raised when a category or category to create a category is not found."""
-    pass
+
+class CategoryNotFoundException(BusinessException):
+    status_code = 404
+
+    def __init__(self):
+        super().__init__("Categoria não encontrada.")
